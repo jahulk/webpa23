@@ -3,11 +3,7 @@ class Beer < ApplicationRecord
   has_many :ratings
 
   def average_rating
-    sum = 0
-    self.ratings.each do |rating|
-      sum += rating.score
-    end
-    
+    sum = self.ratings.reduce(0) {|acc, cur| acc + cur.score}
     avg = self.ratings.empty? ? 0 : sum/self.ratings.count
     avg.to_f
   end
