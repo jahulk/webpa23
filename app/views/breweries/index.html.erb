@@ -6,8 +6,9 @@
 
 <div id="breweries">
   <% @breweries.each do |brewery| %>
-    <div id="<%= dom_id brewery %>">
+    <div id="<%= dom_id brewery %>" style="padding-bottom: 1rem;">
       <p>
+        <strong>Name: </strong>
         <%= link_to brewery.name, brewery %>
       </p>
 
