@@ -7,4 +7,8 @@ class Beer < ApplicationRecord
     avg = self.ratings.empty? ? 0 : sum/self.ratings.count
     avg.to_f
   end
+
+  def to_s
+    self.name + ", " + self.brewery.name
+  end
 end
