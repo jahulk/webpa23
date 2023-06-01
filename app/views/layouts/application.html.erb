@@ -15,7 +15,15 @@
       <%= link_to 'breweries', breweries_path %>
       <%= link_to 'beers', beers_path %>
       <%= link_to 'ratings', ratings_path %>
+      <% if session[:user_id] %>
+      | <%=  User.find(session[:user_id]).username  %> signed in
+      <%  end %>
     </div>
+    <% if session[:last_rating].nil? %>
+    <p>no ratings given</p>
+  <% else %>
+    <p>previous rating: <%= session[:last_rating] %></p>
+  <% end %>
     <%= yield %>
   </body>
 </html>
