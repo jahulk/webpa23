@@ -1,29 +1,36 @@
 <p style="color: green"><%= notice %></p>
 <div>
   <h2>Username:</h2>
-  <p><%= current_user.username %></p>
-  <% if current_user.ratings.empty? %>
+  <p><%= @user.username %></p>
+  <% if @user.ratings.empty? %>
     Has not made any ratings yet!
   <% else %>
-    Has made <%= pluralize(current_user.ratings.count, 'rating') %>, average rating <%= current_user.average_rating %>
+    Has made <%= pluralize(@user.ratings.count, 'rating') %>, average rating <%= @user.average_rating %>
   <% end %>
   <p>
     <strong>ratings</strong>
   </p>
   <ul>
-    <% current_user.ratings.each do |rating| %>
+    <% @user.ratings.each do |rating| %>
       <li id="<%= dom_id rating %>">
-        <%= rating.to_s %> <%= link_to "Delete", rating, data: {
-        "turbo-method": :delete,
-        "turbo_confirm": 'Are you sure?'
-      } %>
+        <%= rating.to_s %>
+        <% if @user == current_user %>
+          <%= link_to "Delete", rating, data: {
+            "turbo-method": :delete,
+            "turbo_confirm": 'Are you sure?' }
+          %>
+        <% end %>
       </li>
     <% end %>
   </ul>
 </div>
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <% if @user == current_user %>
+    <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <% end %>
   <%= link_to "Back to users", users_path %>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+  <% if @user == current_user %>
+    <%= button_to "Destroy this user", @user, method: :delete %>
+  <% end %>
 </div>
