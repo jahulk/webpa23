@@ -7,23 +7,33 @@
   <% else %>
     Has made <%= pluralize(@user.ratings.count, 'rating') %>, average rating <%= @user.average_rating %>
   <% end %>
-  <p>
-    <strong>ratings</strong>
-  </p>
-  <ul>
-    <% @user.ratings.each do |rating| %>
-      <li id="<%= dom_id rating %>">
-        <%= rating.to_s %>
-        <% if @user == current_user %>
-          <%= link_to "Delete", rating, data: {
-            "turbo-method": :delete,
-            "turbo_confirm": 'Are you sure?' }
-          %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
 </div>
+<p>
+  <strong>member of</strong>
+</p>
+<ul>
+  <% @user.beer_clubs.each do |beer_club| %>
+    <li id="<%= dom_id beer_club %>">
+      <%= link_to beer_club.name, beer_club %>
+    </li>
+  <% end %>
+</ul>
+<p>
+  <strong>ratings</strong>
+</p>
+<ul>
+  <% @user.ratings.each do |rating| %>
+    <li id="<%= dom_id rating %>">
+      <%= rating.to_s %>
+      <% if @user == current_user %>
+        <%= link_to "Delete", rating, data: {
+          "turbo-method": :delete,
+          "turbo_confirm": 'Are you sure?' }
+        %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
 <div>
   <% if @user == current_user %>
     <%= link_to "Edit this user", edit_user_path(@user) %> |
