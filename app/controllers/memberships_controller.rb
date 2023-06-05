@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[ show edit update destroy ]
+  before_action :set_membership, only: %i[show edit update destroy]
   before_action :require_login
 
   # GET /memberships or /memberships.json
@@ -14,7 +14,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @beer_clubs = BeerClub.all.filter {|b| !b.users.include?(current_user)}
+    @beer_clubs = BeerClub.all.filter { |b| !b.users.include?(current_user) }
   end
 
   # GET /memberships/1/edit
@@ -25,7 +25,7 @@ class MembershipsController < ApplicationController
   # POST /memberships or /memberships.json
   def create
     @membership = Membership.new(membership_params)
-    @beer_clubs = BeerClub.all.filter {|b| !b.users.include?(current_user)}
+    @beer_clubs = BeerClub.all.filter { |b| !b.users.include?(current_user) }
 
     respond_to do |format|
       if @membership.save
@@ -65,19 +65,18 @@ class MembershipsController < ApplicationController
 
   def require_login
     # code here
-    unless current_user
-      redirect_to signin_path
-    end
+    return if current_user
+
+    redirect_to signin_path
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_membership
-      @membership = Membership.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_membership
+    @membership = Membership.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def membership_params
-      params.require(:membership).permit(:user_id, :beer_club_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def membership_params
+    params.require(:membership).permit(:user_id, :beer_club_id)
+  end
 end
