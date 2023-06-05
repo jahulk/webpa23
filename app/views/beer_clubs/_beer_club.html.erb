@@ -13,10 +13,4 @@
     <strong>City:</strong>
     <%= beer_club.city %>
   </p>
-  <div>
-    <h2>members</h2>
-    <% @beer_club.users.each do |user| %>
-      <div><%= link_to user.username, user %></div>
-    <% end %>
-  </div>
 </div>
