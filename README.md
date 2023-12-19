@@ -1,1 +1,1 @@
-https://jahulk-ratebeer23.fly.dev/
+https://ratebeer23-v2.fly.dev/
